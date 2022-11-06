@@ -5,25 +5,22 @@ import (
 	"os"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/joho/godotenv"
+	"github.com/ibndaanis/golang-rest/internal/initializers"
 )
 
 func init() {
-
-	err := godotenv.Load(".env")
-
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+	initializers.LoadEnvironmentVariables()
+	initializers.ConnectToDataBase()
 }
 
 func main() {
 	app := fiber.New()
 
-	app.Get("/", func(c *fiber.Ctx) error {
-		return c.SendString("Hello, World!")
+	app.Get("/healthcheck", func(c *fiber.Ctx) error {
+		return c.SendString("OK")
 	})
 
+	// Port
 	port := ":" + os.Getenv("PORT")
 
 	err := app.Listen(port)
