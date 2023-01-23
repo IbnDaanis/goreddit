@@ -13,6 +13,11 @@ func init() {
 	initializers.ConnectToDataBase()
 }
 
+type Yes struct {
+	First string `json:"first"`
+	Last  string `json:"last"`
+}
+
 func main() {
 	app := fiber.New()
 
